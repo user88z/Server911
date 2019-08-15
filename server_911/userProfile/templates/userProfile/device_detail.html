@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+{% block title %}
+Profile 911 - {{ device.imei }}
+{% endblock title %}
+
+
+{% block data %}
+<div class="device_info">
+    <form action="{{ device.get_update_url }}" method="post">
+        {% csrf_token %}
+        IMEI: {{ device.imei }}<br>
+        ICCIS: {{ device.sid_1 }}<br>
+        RN: {{ device.rn }} <br>
+
+        {% for field in form %}
+            <div class="form-group">
+                {% if field.errors %}
+                    <div class="alert alert-danger">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+                {{ field.label }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        Last message: {{ device.date_last_message }} <br>
+        Temperature: {{ device.temperature }} <br>
+        Battery: {{ device.battery_level }} <br>
+        <button type="submit" name="button" class="btn btn-primary">Update profile</button>
+    </form>
+</div>
+
+<div class="map">
+        <iframe width="625" height="450" frameborder="0" scrolling="no" 
+        marginheight="0" marginwidth="0" 
+        src="{{ url_gps }}" 
+        style="border: 1px solid black"></iframe>
+        <br/>
+</div>  
+    
+
+{% endblock data %}

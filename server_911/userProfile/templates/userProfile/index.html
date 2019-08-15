@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+
+{% block title %}
+Profile 911
+{% endblock title %}
+
+
+
+{% block data %}
+    
+        <div class="table" style="border: 1px solid black; margin-bottom: 0px;">
+            <div style="display: block;">
+                    <table class="table table-hover table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th width="5%" scope="col">#</th>
+                                <th width="15%" scope="col">IMEI</th>
+                                <th width="15%" scope="col">ICCID</th>
+                                <th width="15%" scope="col">RN</th>
+                                <th width="5%" scope="col">MODE</th>
+                                <th width="20%" scope="col">Last message</th>
+                                <th width="20%" scope="col">Temperature</th>
+                                <th width="5%" scope="col">Battery</th>
+                            </tr>
+                        </thead>
+                    </table>
+            </div>
+           
+            <div class="table-responsive scroll-block">
+                <table class="table table-hover table-striped">
+                    <tbody style="width: 50%;">
+                            
+                            {% for device in devices %}
+                            <tr>
+                                <th width="5%" scope="row">*</th>
+                                <td width="15%"><a href="{% url 'device_detail' imei=device.imei %}">{{ device.imei }}</a></td>
+                                <td width="15%">{{ device.sid_1 }}</td>
+                                <td width="15%">{{ device.rn }}</td>
+                                <td width="5%">{{ device.searchmode }}</td>
+                                <td width="20%">{{ device.date_last_message }}</td>
+                                <td width="20%">{{ device.temperature }}</td>
+                                <td width="5%">{{ device.battery }}</td>
+                            </tr>
+                                {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+    
+{% endblock data %}
